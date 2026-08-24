@@ -89,58 +89,25 @@ Structured JSON logs (no secrets) are written to `bookshop/payment/logs/payments
 
 ---
 
-## 🗄️ Database changes (vs original project)
-
-Run once:
-
-```bash
-mysql -u root ebookstore < database/migration_esewa_payment.sql
-```
-
-Adds gateway-neutral columns to the existing `invoice` (order) table:
-
-| Column | Type | Purpose |
-|---|---|---|
-| `transaction_uuid` | VARCHAR(64), UNIQUE | Per-attempt payment reference |
-| `payment_method` | VARCHAR(30) | `esewa` (legacy rows marked `legacy`) |
-| `payment_status` | VARCHAR(15) | `PENDING` / `PAID` / `FAILED` / `CANCELLED` |
-| `transaction_code` | VARCHAR(50) | eSewa reference id (`ref_id`) |
-| `paid_at` | DATETIME | Confirmation timestamp |
-
-Delivery state remains untouched (`order_status`: 1=Waiting for accept, 2=Order Placed, 3=Delivered).
-
----
-
 ## 🔧 Getting started (XAMPP)
 
-1. Place the project folder under `/opt/lampp/htdocs` (Linux) or `C:\xampp\htdocs` (Windows).
+See **[setup.md](setup.md)** for the full step-by-step guide. Short version:
+
+1. Place the project folder inside `htdocs`.
 2. Start Apache + MySQL.
-3. Create/import the database:
-   - Import `bookshop.sql` (creates the `bookshop` schema; rename as needed)
-   - Then run `database/migration_esewa_payment.sql`
-4. Point `bookshop/Database.php` to your MySQL credentials/database.
-5. Configure eSewa credentials (see Configuration above).
-6. Open `http://localhost/<project-folder>/bookshop/home.php`
+3. Import the single database file:
+   ```bash
+   mysql -u root < database/ebookstore_setup.sql
+   ```
+   Creates the `ebookstore` DB, all tables (eSewa payment columns included),
+   the Nepali catalog and one bootstrap admin — no customer/order data.
+4. Check `bookshop/Database.php` credentials.
+5. Open `http://localhost/<project-folder>/bookshop/home.php`
 
-Admin panel: `/adminSignin.php` — simple **email + password** login
-(default seeded accounts use password `admin123`; change them after first
-login via `UPDATE admin SET password='...' WHERE email='...'`, or see
-`database/migration_admin_password.sql`). A direct **Admin Login** link is
-available on the customer sign-in page.
-
-> **Email features** (admin login codes, registration, forgot password, category
-> verification) use the centralized config in `bookshop/config.ini`
-> (copy from `bookshop/config.example.ini`):
->
-> - `MAIL_ENVIRONMENT = local` → no real emails; every message and its
->   verification code is appended to `bookshop/logs/mail_codes.log`. Perfect for development.
-> - `MAIL_ENVIRONMENT = production` → sends through the configured SMTP server
->   (`MAIL_SMTP_USER`, `MAIL_SMTP_PASS`, ...). For Gmail, enable 2-Step
->   Verification and create an App Password at
->   https://myaccount.google.com/apppasswords — never use your normal password,
->   and never commit `config.ini`.
->
-> Registration validates Nepali mobile numbers (98/97/96XXXXXXXX).
+Admin panel: `/adminSignin.php` — simple **email + password** login.
+The setup creates one admin (`nena123maharjan@gmail.com` / `admin123`);
+change it after first login. A direct **Admin Login** link is available on
+the customer sign-in page.
 
 ## 🧪 Verifying payments locally (quick check)
 

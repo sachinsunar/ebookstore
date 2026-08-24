@@ -1,6 +1,11 @@
 <?php
 include "Database.php";
 session_start();
+
+if (!isset($_SESSION["au"])) {
+    header("Location: adminSignin.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>

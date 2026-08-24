@@ -421,7 +421,8 @@
             ?>
 
                 <script>
-                    window.location = "index.php";
+                    alert("Please sign in as admin to access this function.");
+                    window.location = "adminSignin.php";
                 </script>
 
             <?php

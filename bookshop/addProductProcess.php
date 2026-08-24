@@ -3,6 +3,11 @@
 session_start();
 include "Database.php";
 
+if (!isset($_SESSION["au"])) {
+    echo ("Please sign in as admin.");
+    exit();
+}
+
 $email = $_SESSION["au"]["email"];
 
 $category = $_POST["ca"];

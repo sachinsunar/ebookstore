@@ -9,6 +9,11 @@ require "Exception.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 
+if (!isset($_SESSION["au"])) {
+    echo ("Please sign in as admin.");
+    exit();
+}
+
 if (isset($_POST["email"]) && isset($_POST["name"])) {
     if ($_SESSION["au"]["email"] == $_POST["email"]) {
 

@@ -2,6 +2,11 @@
 include "Database.php";
 session_start();
 
+if (!isset($_SESSION["au"])) {
+    echo ("Please sign in as admin.");
+    exit();
+}
+
 if(isset($_POST["e"]) && isset($_POST["f"]) && isset($_POST["l"])){
 
     $email = $_POST["e"];

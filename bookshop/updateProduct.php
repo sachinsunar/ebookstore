@@ -377,8 +377,8 @@ session_start();
             } else {
                 ?>
                 <script>
-                    alert("You have to signin to the system for access this function.");
-                    window.location = "home.php";
+                    alert("Please sign in as admin to access this function.");
+                    window.location = "adminSignin.php";
                 </script>
             <?php
             }
