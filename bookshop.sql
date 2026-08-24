@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 -- Dumping data for table bookshop.admin: ~2 rows (approximately)
 INSERT INTO `admin` (`fname`, `lname`, `email`, `vcode`) VALUES
-	('Sachin', 'Shrestha', 'sachinsunar2151@gmail.com', '660f94ec2116c'),
+	('Sachin', 'Sunar', 'sachinsunar2151@gmail.com', '660f94ec2116c'),
 	('Nena', 'Maharjan', 'nena123maharjan@gmail.com', '674c0a2aa8c5e');
 
 -- Dumping structure for table bookshop.author

@@ -1,6 +1,7 @@
 <?php
 
 include "Database.php";
+require_once "mail_config.php";
 
 include "SMTP.php";
 include "PHPMailer.php";
@@ -21,25 +22,17 @@ if (isset($_GET["e"])) {
         Connection::iud("UPDATE `user` SET `verification_code`='" . $code . "' WHERE `email`='" . $email . "'");
 
         $mail = new PHPMailer;
-        $mail->IsSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'email';
-        $mail->Password = 'password';
-        $mail->SMTPSecure = 'ssl';
-        $mail->Port = 465;
-        $mail->setFrom('email', 'Reset Password');
-        $mail->addReplyTo('email', 'Reset Password');
+        app_mail_configure($mail);
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->Subject = 'Unicorn Forgot password Verification Code';
         $bodyContent = '<h2 style="color:green;">Your Verification Code is </h2><h1 style="color:red">'.$code.'</h1>';
         $mail->Body    = $bodyContent;
 
-        if(!$mail->send()){
-            echo 'Verification code sending failed.';
-        }else{
+        if(app_mail_deliver($mail, $code)){
             echo 'Success';
+        }else{
+            echo 'Verification code sending failed.';
         }
 
     } else {

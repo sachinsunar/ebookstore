@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-12 text-center text-black-50 mt-4 mb-2">
-                    <label>unicorn.lk | Solution by Sandeepa&copy; <?php echo(date("Y"))?></label>
+                    <label>Unicorn Book Shop | Solution by Nena Maharjan&copy; <?php echo(date("Y"))?></label>
                 </div>
 
             </div>

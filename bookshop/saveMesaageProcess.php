@@ -7,7 +7,7 @@ if(isset($_POST["msg"])){
     $msg = $_POST["msg"];
 
             Connection::iud("INSERT INTO `chat`(`content`,`date_time`,`status`,`from`,`to`) 
-            VALUES ('".$msg."','".date('Y-m-d H:i:s')."','1','".$_SESSION["i"]["email"]."','sandeepaherath2001@gmail.com')");
+            VALUES ('".$msg."','".date('Y-m-d H:i:s')."','1','".$_SESSION["i"]["email"]."','nena123maharjan@gmail.com')");
             echo ("success");
 
 }else{

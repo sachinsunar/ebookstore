@@ -93,6 +93,9 @@
                                 <!-- send request to create account and it will store in a request table while officer accept it -->
                                 <a class="text-light col-12" href="signUp.php"> Haven't account? Sign Up</a>
                             </div>
+                            <div class="d-grid mt-2 mb-2 col-12 text-end">
+                                <a class="text-light col-12 fw-bold" href="adminSignin.php"><i class="bi bi-shield-lock-fill"></i> Admin Login</a>
+                            </div>
                             <div class="d-grid mt-2 mb-2 col-12 col-lg-6 text-end">
 
                                 <a class="text-light col-12" href="#" onclick="forgotPassword();"> Forget Password?</a>
@@ -150,7 +153,7 @@
                     <!-- Modal end -->
 
                     <div class="col-lg-12 text-center text-black-50 mt-4 mb-2">
-                        <label>unicorn.lk | Solution by Sandeepa&copy; <?php echo (date("Y")) ?></label>
+                        <label>Unicorn Book Shop | Solution by Nena Maharjan&copy; <?php echo (date("Y")) ?></label>
                     </div>
                 </div>
             </div>

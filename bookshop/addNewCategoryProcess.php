@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "Database.php";
+require_once "mail_config.php";
 
 require "SMTP.php";
 require "PHPMailer.php";
@@ -23,15 +24,7 @@ if (isset($_POST["email"]) && isset($_POST["name"])) {
             Connection::iud("UPDATE `admin` SET `vcode`='" . $code . "' WHERE `email`='" . $umail . "'");
 
             $mail = new PHPMailer;
-            $mail->IsSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'email';
-            $mail->Password = 'password';
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port = 465;
-            $mail->setFrom('email', 'Add New Category');
-            $mail->addReplyTo('email', 'Add New Category');
+            app_mail_configure($mail);
             $mail->addAddress($umail);
             $mail->isHTML(true);
             $mail->Subject = 'Unicorn Admin Login Verification Code for Add new category';

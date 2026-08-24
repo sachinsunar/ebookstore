@@ -1,6 +1,7 @@
 <?php
 
 require "Database.php";
+require_once "mail_config.php";
 
 require "SMTP.php";
 require "PHPMailer.php";
@@ -34,7 +35,7 @@ if (empty($fname)) {
     echo ("Please Enter Your Mobile Number.");
 } else if (strlen($mobile) != 10) {
     echo ("Mobile Number Must Contain 10 Characters");
-} else if (!preg_match("/07[0,1,2,4,5,6,7,8][0-9]/", $mobile)) {
+} else if (!preg_match("/^98[0-9]{8}$/", $mobile) && !preg_match("/^97[0-9]{8}$/", $mobile) && !preg_match("/^96[0-9]{8}$/", $mobile)) {
     echo ("Invalid Mobile Number");
 } else if (empty($password)) {
     echo ("Please enter your Password !!!");
@@ -73,26 +74,17 @@ if (empty($fname)) {
             $msg = 'Hi, Thankyou for joining with us ' . $fname . ' ' . $lname . '. <h2 style="color:blue;">Embrace the Magic of Reading.</h2>';
 
             $mail = new PHPMailer;
-            $mail->IsSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'email';
-            $mail->Password = 'password';
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port = 465;
-            $mail->setFrom('email', 'Unicorn');
-            $mail->addReplyTo('email', 'Unicorn');
+            app_mail_configure($mail);
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = $subject;
             $bodyContent = $msg;
             $mail->Body = $bodyContent;
 
-            if (!$mail->send()) {
-                // if mail didn't sent
-                echo ("Error Occured Create User");
-            } else {
+            if (app_mail_deliver($mail)) {
                 echo "success";
+            } else {
+                echo ("Error Occured Create User");
             }
         } catch (\Throwable $th) {
             //throw $th;

@@ -55,7 +55,7 @@
                                     <h2>Unicorn Bookshop</h2>
                                 </div>
                                 <div class="col-12 fw-bold text-end">
-                                    <span>Maradana, Colombo 10, Sri Lanka.</span><br />
+                                    <span>Bagbazar, Kathmandu 12, Nepal.</span><br />
                                     <span>+94112 555448</span><br />
                                     <span>unicorn@gmail.com</span>
                                 </div>
@@ -85,15 +85,41 @@
 
                                 <?php 
 
-                                $invoice_rs = Connection::select("SELECT * FROM `invoice` WHERE `order_id`='".$oid."'");
+                                $invoice_rs = Connection::select("SELECT * FROM `invoice` WHERE `order_id`='".$oid."' AND `user_email`='".$umail."'");
+                                if ($invoice_rs->num_rows == 0) {
+                                    echo ("<script>alert('Access denied. This order does not belong to you.');window.location='purchasingHistory.php';</script>");
+                                    exit;
+                                }
                                 $invoice_data = $invoice_rs->fetch_assoc();
                                 
                                 ?>
 
                                 <div class="col-6 text-end mt-4">
                                     <h1 class="text-light">INVOICE <?php echo $invoice_data["invoice_id"]; ?></h1>
-                                    <span class="fw-bold">Data & Time of Invoice : </span>&nbsp;
+                                    <span class="fw-bold">Data &amp; Time of Invoice : </span>&nbsp;
                                     <span class="fw-bold"><?php echo $invoice_data["date"]; ?></span>
+                                    <br />
+                                    <span class="fw-bold">Payment Method : </span>&nbsp;
+                                    <span class="fw-bold text-uppercase"><?php echo $invoice_data["payment_method"]; ?></span>
+                                    &nbsp;&nbsp;
+                                    <?php
+                                    if ($invoice_data["payment_status"] == "PAID") {
+                                    ?>
+                                        <span class="badge bg-success fs-6">PAID</span>
+                                        <?php if (!empty($invoice_data["transaction_code"])) { ?>
+                                            <br /><span class="fw-bold small">eSewa Ref : <?php echo $invoice_data["transaction_code"]; ?></span>
+                                        <?php } ?>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <span class="badge bg-warning text-dark fs-6">
+                                            NOT PAID (<?php echo $invoice_data["payment_status"]; ?>)
+                                        </span>
+                                        <br />
+                                        <a href="payment/retryPaymentProcess.php?order_id=<?php echo urlencode($oid); ?>" class="btn btn-primary btn-sm mt-1">Pay Now with eSewa</a>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
 
                             </div>
@@ -168,7 +194,12 @@
                         </div>
 
                         <div class="col-4 text-center" style="margin-top: -100px;">
-                            <span class="fs-1 fw-bold text-success">Thank You !</span>
+                            <?php if ($invoice_data["payment_status"] == "PAID") { ?>
+                                <span class="fs-1 fw-bold text-success">Thank You !</span>
+                            <?php } else { ?>
+                                <span class="fs-1 fw-bold text-danger">Not Paid !</span><br />
+                                <span class="fw-bold text-black-50 fs-6">This order is not confirmed until payment is complete.</span>
+                            <?php } ?>
                         </div>
 
                         <div class="col-12 mt-3 mb-3 border-0 border-start border-5 border-primary rounded" style="background-color: #e7f2ff;">

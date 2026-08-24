@@ -45,34 +45,7 @@
 
                                     </nav>
                                 </div>
-                                <div class="col-12 mt-2">
-                                    <hr class="border border-1 border-white" />
-                                    <h5 class="text-white fw-bold">Total Active Time</h5>
-                                    <hr class="border border-1 border-white" />
-                                </div>
-                                <div class="col-12 mt-2 d-grid">
-                                    <?php
 
-                                    $start_date = new DateTime("2023-12-15 19:00:00");
-
-                                    $tdate = new DateTime();
-                                    $tz = new DateTimeZone("Asia/Colombo");
-                                    $tdate->setTimezone($tz);
-                                    $end_date = new DateTime($tdate->format("Y-m-d H:i:s"));
-
-                                    $difference = $end_date->diff($start_date);
-
-                                    ?>
-
-                                    <label class="form-label fw-bold text-primary">
-                                        <?php
-                                        echo $difference->format('%Y') . " Years " . $difference->format('%m') . " Months " .
-                                            $difference->format('%d') . " Days " . $difference->format('%H') . " Hours " .
-                                            $difference->format('%i') . " Minutes " . $difference->format('%s') . " Seconds";
-                                        ?>
-
-                                    </label>
-                                </div>
                                 <div class="col-12 mt-4">
                                     <a class="btn btn-primary col-12" href="adminSignOutProcess.php">Sign Out</a>
                                 </div>
@@ -440,7 +413,7 @@
 
                     </div>
                     <div class="col-lg-12 text-center text-black-50 mt-4 mb-2">
-                        <label>unicorn.lk | Solution by Sandeepa&copy; <?php echo (date("Y")) ?></label>
+                        <label>Unicorn Book Shop | Solution by Nena Maharjan&copy; <?php echo (date("Y")) ?></label>
                     </div>
                 </div>
             <?php

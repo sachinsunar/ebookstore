@@ -46,21 +46,26 @@
 
                             <div class="col-12 text-center">
                                 <img src="resource/permission.png"/>
-                                <p class="title02">Sign In to your Account.</p>
+                                <p class="title02">Admin Sign In.</p>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 mt-2">
                                 <label class="form-label">Email</label>
                                 <input type="email" class="form-control" placeholder="ex : admin@gmail.com" id="e" />
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" placeholder="Your admin password" id="p" />
                             </div>
 
                             <div class="col-12 text-center mt-2 bg-white bg-opacity-25 shadow text-danger fs-5 mb-2" id="message">
 
                             </div>
 
-                            <div class="col-12 col-lg-6 d-grid mb-5">
-                                <button class="btn btn-primary" onclick="adminVerification();">Send Verification Code</button>
+                            <div class="col-12 col-lg-6 d-grid mb-3 mt-2">
+                                <button class="btn btn-primary" onclick="adminSignIn();">Sign In</button>
                             </div>
-                            <div class="col-12 col-lg-6 d-grid mb-5">
+                            <div class="col-12 col-lg-6 d-grid mb-3 mt-2">
                                 <a class="btn btn-danger" href="signIn.php">Back to Customer Log In</a>
                             </div>
 
@@ -68,28 +73,7 @@
                     </div>
 
                     <div class="col-lg-12 text-center text-black-50 mt-4 mb-2">
-                        <label>unicorn.lk | Solution by Sandeepa&copy; <?php echo (date("Y")) ?></label>
-                    </div>
-                </div>
-            </div>
-
-            <!--  -->
-
-            <div class="modal" tabindex="-1" id="verificationModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background-color: #BA457C;">
-                            <h5 class="modal-title">Admin Verification</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" style="background-color: #c5e1fa;">
-                            <label class="form-label">Enter Your Verification Code</label>
-                            <input type="text" class="form-control" id="vcode">
-                        </div>
-                        <div class="modal-footer" style="background-color: #BA457C;">
-                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="verify();">Verify</button>
-                        </div>
+                        <label>Unicorn Book Shop | Solution by Nena Maharjan&copy; <?php echo (date("Y")) ?></label>
                     </div>
                 </div>
             </div>

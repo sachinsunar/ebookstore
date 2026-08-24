@@ -66,7 +66,14 @@
                                     <div class="row">
 
                                         <div class="col-12 bg-primary bg-opacity-50 text-start p-1 d-flex pt-2 pb-2 shadow">
-                                            <label class="form-label text-white fs-5 col-7 offset-1">Order Id - <?php echo $invoice_data["order_id"]; ?></label>
+                                            <label class="form-label text-white fs-5 col-5 offset-1">Order Id - <?php echo $invoice_data["order_id"]; ?></label>
+                                            <label class="form-label text-white fs-6 col-3 pt-2 text-end pe-2">Payment :
+                                                <?php if ($invoice_data["payment_status"] == "PAID") { ?>
+                                                    <span class="badge bg-success"><?php echo $invoice_data["payment_status"]; ?></span>
+                                                <?php } else { ?>
+                                                    <span class="badge bg-danger text-dark"><?php echo $invoice_data["payment_status"]; ?> / UNPAID</span>
+                                                <?php } ?>
+                                            </label>
                                             <div class="col-4 text-center">
                                                 <?php
 
@@ -119,11 +126,17 @@
                                                                 <label class="card-text fs-6"><b>Buying Time : </b><?php echo $invoice_data["date"]; ?></label>
                                                                 <div class="row justify-content-center">
                                                                     <div class="col-6 d-grid">
-                                                                        <button class="btn btn-secondary rounded border border-1 border-primary mt-5 fs-5" onclick="addFeedback(<?php echo $product_data['id']; ?>);">
-                                                                            <i class="bi bi-info-circle-fill"></i> Feedback
-                                                                        </button>
+                                                                        <?php if (in_array($invoice_data["payment_status"], array("PENDING", "FAILED"), true)) { ?>
+                                                                            <a class="btn btn-warning rounded border border-1 border-primary mt-5 fs-5"
+                                                                               href="payment/retryPaymentProcess.php?order_id=<?php echo urlencode($invoice_data["order_id"]); ?>">
+                                                                                <i class="bi bi-arrow-clockwise"></i> Pay Now with eSewa
+                                                                            </a>
+                                                                        <?php } else { ?>
+                                                                            <button class="btn btn-secondary rounded border border-1 border-primary mt-5 fs-5" onclick="addFeedback(<?php echo $product_data['id']; ?>);">
+                                                                                <i class="bi bi-info-circle-fill"></i> Feedback
+                                                                            </button>
+                                                                        <?php } ?>
                                                                     </div>
-
                                                                 </div>
                                                             </div>
                                                         </div>

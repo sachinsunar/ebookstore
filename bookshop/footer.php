@@ -21,7 +21,7 @@
 
                 <div class="col-12 col-md-3 col-lg-3 mx-auto mt-3">
                     <h5 class="text-uppercase text-danger mb-4">Unicorn</h5>
-                    <p>Here we are the unicorn.lk&trade; to support you for finding your favourite books easily through
+                    <p>Here we are the Unicorn Book Shop&trade; to support you for finding your favourite books easily through
                         online.</p>
                         <p class="text-white-50 mt-4 mb-1">Follow Us</p>
                     <div class="text-sm-center text-md-start">
@@ -81,15 +81,15 @@
 
                     <h5 class="text-uppercase text-success mb-4">Contact</h5>
 
-                    <p><i class="bi bi-house-fill"></i> Maradana, Colombo 10, Sri Lanka</p>
-                    <p><i class="bi bi-at"></i> unicornbooks@gmail.com</p>
-                    <p><i class="bi bi-telephone-fill"></i> +94 112 356 356</p>
-                    <p><i class="bi bi-printer-fill"></i> +94 112 356 356</p>
+                    <p><i class="bi bi-house-fill"></i> Bagbazar, Kathmandu 12, Nepal</p>
+                    <p><i class="bi bi-at"></i> nena123maharjan@gmail.com</p>
+                    <p><i class="bi bi-telephone-fill"></i> +977 1 435 6356</p>
+                    <p><i class="bi bi-printer-fill"></i> +977 1 435 6356</p>
 
                 </div>
 
                 <div class="col-12 mx-auto mt-3 text-center">
-                    <p>Copyright &copy; <?php echo (date("Y")) ?> Unicorn.lk - All Rights Reserved.</p>
+                    <p>Copyright &copy; <?php echo (date("Y")) ?> Unicorn Book Shop - All Rights Reserved.</p>
                 </div>
                 <div class="text-center col-12">
                     <a href="#" class="text-info">Terms and conditions</a>

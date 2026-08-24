@@ -208,60 +208,32 @@ function basicSearch(x) {
 }
 
 var av;
-function adminVerification() {
+
+function adminSignIn() {
 
     var email = document.getElementById("e");
+    var password = document.getElementById("p");
 
     var form = new FormData();
     form.append("e", email.value);
+    form.append("p", password.value);
 
     var request = new XMLHttpRequest();
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.status == 200 && request.readyState == 4) {
             var response = request.responseText;
-            if (response == "Success") {
-                alert("Please take a look at your email to find the VERIFICATION CODE.");
-                var adminVerificationModal = document.getElementById("verificationModal");
-                av = new bootstrap.Modal(adminVerificationModal);
-                av.show();
-            } else {
-                alert(response);
-            }
 
-        }
-    }
-
-    request.open("POST", "adminVerificationProcess.php", true);
-    request.send(form);
-
-}
-
-function verify() {
-
-    var code = document.getElementById("vcode");
-
-    var form = new FormData();
-    form.append("c", code.value);
-
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
             if (response == "success") {
-                av.hide();
                 window.location = "adminPanel.php";
             } else {
                 alert(response);
             }
-
         }
-    }
+    };
 
-    request.open("POST", "verificationProcess.php", true);
+    request.open("POST", "adminSignInProcess.php", true);
     request.send(form);
-
 }
 
 var mm;
@@ -741,117 +713,44 @@ function qty_dec() {
     }
 }
 
-function payNow(id) {
-    // alert("ok");
-
-    var qty = document.getElementById("qty_input").value;
-
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
-            var response = request.responseText;
-
-            var obj = JSON.parse(response);
-
-            var mail = obj["umail"];
-            var amount = obj["amount"];
-
-            if (response == 1) {
-                alert("Please Login.");
-                window.location = "home.php";
-            } else if (response == 2) {
-                alert("Please update your profile.");
-                window.location = "userProfile.php";
-            } else {
-
-                // Payment completed. It can be a successful failure.
-                payhere.onCompleted = function onCompleted(orderId) {
-                    console.log("Payment completed. OrderID:" + orderId);
-
-                    alert("Payment completed. OrderID:" + orderId);
-                    saveInvoice(orderId, id, mail, amount, qty);
-
-                };
-
-                // Payment window closed
-                payhere.onDismissed = function onDismissed() {
-                    // Note: Prompt user to pay again or show an error page
-                    console.log("Payment dismissed");
-                };
-
-                // Error occurred
-                payhere.onError = function onError(error) {
-                    // Note: show an error page
-                    console.log("Error:" + error);
-                };
-
-                // Put the payment variables here
-                var payment = {
-                    "sandbox": true,
-                    "merchant_id": obj["mid"],    // Replace your Merchant ID
-                    "return_url": "http://localhost/bookshop/singleProductView.php?id=" + id,     // Important
-                    "cancel_url": "http://localhost/bookshop/singleProductView.php?id=" + id,     // Important
-                    "notify_url": "http://sample.com/notify",
-                    "order_id": obj["id"],
-                    "items": obj["item"],
-                    "amount": amount + ".00",
-                    "currency": "LKR",
-                    "hash": obj["hash"], // *Replace with generated hash retrieved from backend
-                    "first_name": obj["fname"],
-                    "last_name": obj["lname"],
-                    "email": mail,
-                    "phone": obj["mobile"],
-                    "address": obj["address"],
-                    "city": obj["city"],
-                    "country": "Sri Lanka",
-                    "delivery_address": obj["address"],
-                    "delivery_city": obj["city"],
-                    "delivery_country": "Sri Lanka",
-                    "custom_1": "",
-                    "custom_2": ""
-                };
-
-                // Show the payhere.js popup, when "PayHere Pay" is clicked
-                // document.getElementById('payhere-payment').onclick = function (e) {
-                payhere.startPayment(payment);
-                // };
-
-            }
-
-        }
-    }
-
-    request.open("GET", "buyNowProcess.php?id=" + id + "&qty=" + qty, true);
-    request.send();
-}
-
-function saveInvoice(orderId, id, mail, amount, qty) {
+function buyNow(id) {
+    var qtyInput = document.getElementById("qty_input");
+    var qty = qtyInput ? qtyInput.value : 1;
 
     var form = new FormData();
-    form.append("o", orderId);
-    form.append("i", id);
-    form.append("m", mail);
-    form.append("a", amount);
-    form.append("q", qty);
+    form.append("id", id);
+    form.append("qty", qty);
 
     var request = new XMLHttpRequest();
 
     request.onreadystatechange = function () {
-        if (request.status == 200 & request.readyState == 4) {
+        if (request.status == 200 && request.readyState == 4) {
             var response = request.responseText;
 
-            if (response == "success") {
-                window.location = "invoice.php?id=" + orderId;
+            try {
+                var obj = JSON.parse(response);
+            } catch (e) {
+                alert("Something went wrong. Please try again.");
+                return;
+            }
+
+            if (obj.status == "ok") {
+                // Redirecting to eSewa...
+                window.location = obj.redirect;
+            } else if (obj.code == "login") {
+                alert(obj.message);
+                window.location = "signIn.php";
+            } else if (obj.code == "profile") {
+                alert(obj.message);
+                window.location = "userProfile.php";
             } else {
-                alert(response);
+                alert(obj.message);
             }
         }
-    }
+    };
 
-    request.open("POST", "saveInvoiceProcess.php", true);
+    request.open("POST", "payment/initiatePaymentProcess.php", true);
     request.send(form);
-
 }
 
 function printInvoice() {

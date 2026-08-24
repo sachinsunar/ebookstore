@@ -41,12 +41,12 @@ include "Database.php";
                         <div class="row">
                             <div class="col-12 mx-auto mt-3">
                                 <h5 class="text-uppercase text-light mb-4">Unicorn</h5>
-                                <p>Here we are the unicorn.lk&trade; to support you for finding your favourite books easily through
+                                <p>Here we are the Unicorn Book Shop&trade; to support you for finding your favourite books easily through
                                     online.</p>
 
                                 <h5 class="text-uppercase text-white mb-4">Contact</h5>
 
-                                <p><i class="bi bi-house-fill"></i> Maradana, Colombo 10, Sri Lanka</p>
+                                <p><i class="bi bi-house-fill"></i> Bagbazar, Kathmandu 12, Nepal</p>
                                 <p><i class="bi bi-at"></i> unicornbooks@gmail.com</p>
                                 <p><i class="bi bi-telephone-fill"></i> +94 112 356 356</p>
                                 <p><i class="bi bi-printer-fill"></i> +94 112 356 356</p>

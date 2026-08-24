@@ -54,8 +54,13 @@ function esewa_config(): array
         "environment"      => $environment,
         "merchant_code"    => esewa_env("ESEWA_MERCHANT_CODE") ?: "EPAYTEST",
         "secret_key"       => esewa_env("ESEWA_SECRET_KEY") ?: "8gBm/:&EnhH.1/q",
-        "form_url"         => $formUrl,
-        "status_url"       => $statusUrl,
+
+        // Advanced/testing override - lets you point the integration at a
+        // local mock of the eSewa endpoints. Leave unset for real usage;
+        // production/sandbox hosts are chosen automatically otherwise.
+        "form_url"         => esewa_env("ESEWA_FORM_URL") ?: $formUrl,
+        "status_url"       => esewa_env("ESEWA_STATUS_URL") ?: $statusUrl,
+
         "app_base_url"     => rtrim(esewa_env("ESEWA_APP_BASE_URL") ?: "http://localhost/ebookstore/bookshop", "/"),
         "success_url"      => rtrim(esewa_env("ESEWA_APP_BASE_URL") ?: "http://localhost/ebookstore/bookshop", "/") . "/payment/payment_success.php",
         "failure_url"      => rtrim(esewa_env("ESEWA_APP_BASE_URL") ?: "http://localhost/ebookstore/bookshop", "/") . "/payment/payment_failure.php",
