@@ -21,8 +21,10 @@
         <div class="row">
             <div class="col-12 col-lg-4 mt-3 justify-content-center">
                 <div class="mt-3 m-2 p-2 bg-primary bg-opacity-75 text-black col-12 rounded-3">
-                    <img src="logo.jpg" class="logo"/>
-                    <label class="fs-2">Unicorn Book Shop</label>
+                    <a href="home.php" class="text-decoration-none text-black d-inline-flex align-items-center">
+                        <img src="logo.jpg" class="logo"/>
+                        <label class="fs-2">Unicorn Book Shop</label>
+                    </a>
                 </div>
 
 
